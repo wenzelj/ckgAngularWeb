@@ -35,9 +35,7 @@
       <button ng-show="!loading" type="submit" (click)="save(advert)" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i> save</button>
     </form>
 
-    <div *ngIf="success" class="alert alert-success" role="alert"> Successfuly created Addvert {{response}} </div>
-
-    <div *ngIf="fail" class="alert alert-danger" role="alert"> Failed to created Addvert {{response}} </div>
+    <div class="alert alert-success" role="alert"> {{response}} </div>
 
   </div>
 

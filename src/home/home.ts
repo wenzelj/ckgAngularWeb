@@ -8,9 +8,6 @@ import { contentHeaders } from '../common/headers';
 let styles = require('./home.css');
 let template = require('./home.html');
 
-
-
-
 @Component({
   selector: 'home'
 })
@@ -35,10 +32,10 @@ export class Home {
     this.advert = {};
     this.advert.longitude = 0;
     this.advert.latitude = 0;
-    this.advert.url = "test";
-    this.advert.voucher= "test";
-    this.advert.startdate;
-    this.advert.enddate;
+    this.advert.url = 'test';
+    this.advert.voucher= 'test';
+    this.advert.startdate = new Date();
+    this.advert.enddate = new Date();
   }
 
   logout() {
@@ -50,30 +47,13 @@ export class Home {
   this.loading = true;
   this.response = null;
   let body = JSON.stringify(newadvert);
-  this.authHttp.post("http://localhost:3001/api/protected/advert", body,  { headers: contentHeaders } )
+  this.authHttp.post('http://localhost:3001/api/protected/advert',
+                       body,
+                      { headers: contentHeaders } )
       .subscribe(
-          response => this.success(response),
-          error => failed(error);
+          response => this.response = response.text(),
+          error => this.response = error.text()
   }
-
-  success(response){
-    this.response = response.text(); this.loading = false; this.showSuccess
-  }
-
-  failed(response){
-    this.response = error.text();  this.loading = false; this.showError = true;
-  }
-
-  showSuccess(){
-    this.success = true;
-    this.fail = false;
-  }
-
-  showError(){
-    this.success = false;
-    this.fail = true;
-  }
-
 
   callAnonymousApi() {
     this._callApi('Anonymous', 'http://localhost:3001/api/random-quote');
