@@ -4,6 +4,10 @@
   <div class="home jumbotron centered">
     <h2>Add new advert by geolocation</h2>
     <form name="advertform" class="form-inline">
+        <div class="form-group">
+        <label for="txtlongitude">Unique name</label><br/>
+        <input type="text" [(ngModel)]="advert.name" class="form-control" id="txtlongitude" placeholder="unique name">
+      </div>
       <div class="form-group">
         <label for="txtlongitude">Longitude</label><br/>
         <input type="text" [(ngModel)]="advert.longitude" class="form-control" id="txtlongitude" placeholder="">

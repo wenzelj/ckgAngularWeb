@@ -34,5 +34,8 @@
     "jsonwebtoken": "^1.1.2",
     "lodash": "^2.4.1",
     "morgan": "^1.2.3"
+  },
+  "devDependencies": {
+    "azure-table-node": "^1.4.1"
   }
 }

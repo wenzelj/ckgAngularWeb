@@ -21,7 +21,7 @@ export class Home {
   decodedJwt: string;
   response: string;
   api: string;
-  advert: object;
+  advert: any;
   loading: boolean = false;
   success: boolean = false;
   fail: boolean = false;
@@ -30,6 +30,7 @@ export class Home {
     this.jwt = localStorage.getItem('jwt');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
     this.advert = {};
+    this.advert.name = "";
     this.advert.longitude = 0;
     this.advert.latitude = 0;
     this.advert.url = 'test';

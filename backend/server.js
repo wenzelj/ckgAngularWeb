@@ -1,10 +1,10 @@
-var logger          = require('morgan'),
-    cors            = require('cors'),
-    http            = require('http'),
-    express         = require('express'),
-    errorhandler    = require('errorhandler'),
-    dotenv          = require('dotenv'),
-    bodyParser      = require('body-parser');
+var logger = require('morgan');
+var cors = require('cors');
+var http = require('http');
+var express = require('express');
+var errorhandler = require('errorhandler');
+var dotenv = require('dotenv');
+var bodyParser = require('body-parser');
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(function(err, req, res, next) {
 });
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(express.logger('dev'));
+  app.use(logger('dev'));
   app.use(errorhandler())
 }
 
