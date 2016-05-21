@@ -39,6 +39,56 @@ export class Home {
     localStorage.removeItem('jwt');
     this.router.parent.navigateByUrl('/login');
   }
+  
+  //   base64(file, callback){
+  //   var coolFile = {};
+  //   function readerOnload(e){
+  //     var base64 = btoa(e.target.result);
+  //     coolFile.base64 = base64;
+  //     callback(coolFile)
+  //   };
+
+  //   var reader = new FileReader();
+  //   reader.onload = readerOnload;
+
+  //   var file = file[0].files[0];
+  //   coolFile.filetype = file.type;
+  //   coolFile.size = file.size;
+  //   coolFile.filename = file.name;
+  //   reader.readAsBinaryString(file);
+  // }
+  
+ 
+  advertUpload(event) {
+    var encodedFile;
+    alert('upload');
+    var files = event.srcElement.files;
+    var file = files[0];
+    var reader = new FileReader();
+    // var dataUrl =  reader.readAsDataURL(files[0]);
+    // var binaryString = reader.readAsBinaryString(files);
+    // console.log(files);
+    //     if (files && file) {
+         
+    //     var fileReader = new FileReader();
+ 
+    //     fileReader.onload = function(fileLoadedEvent) 
+    //     {
+    //         // var textAreaFileContents = document.getElementById
+    //         // (
+    //         //     "textAreaFileContents"
+    //         // );
+     
+    //         encodedFile = fileLoadedEvent.target.result;
+    //     }
+ 
+    //     fileReader.readAsDataURL(file);
+    // }  
+    
+  }
+  
+  
+
 
   save(newadvert){
   this.loading = true;

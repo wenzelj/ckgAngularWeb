@@ -19,12 +19,12 @@
 
       <div class="form-group">
         <label for="txtadverturl">Advert image</label><br/>
-        <input type="text" [(ngModel)]="advert.image" class="form-control" id="txtadverturl" placeholder="">
+        <input type="file" accept="image/*" (change)="advertUpload($event)" class="form-control" id="txtadverturl" placeholder="">
       </div>
       
        <div class="form-group">
         <label for="txtvoucherurl">Voucher image</label><br/>
-        <input type="text" [(ngModel)]="advert.voucher" class="form-control" id="txtvoucherurl" placeholder="">
+        <input type="file" [(ngModel)]="advert.voucher" accept="image/*" class="form-control" id="txtvoucherurl" placeholder="">
       </div>
       <div class="form-group">
         <label for="txtfromDate">Start Date</label><br/>
