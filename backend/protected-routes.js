@@ -36,7 +36,7 @@ app.use('/api/protected', jwtCheck);
 app.post('/api/protected/advert', function(req, res) {
   var advert = JSON.stringify(req.body);
   var name = req.body.name;
-  partitionKey = 'geoadds';
+  var partitionKey = 'geoadds';
 
   var entity = new Entity(partitionKey, name, advert);
   client.insertEntity(tableName, entity ,function(error, data){
@@ -50,17 +50,5 @@ app.post('/api/protected/advert', function(req, res) {
          res.status(200).send('Succesfully saved')
      }
   });
-
-  // var tableValue = client.getEntity(tableName, partitionKey, name,[{metadata:"no"}] ,function(error, data){
-  //   console.log(error);
-  //   console.log(data);
-  //   if(error != undefined){
-  //     res.status(200).send(error);
-  //   }
-    
-  //   if(data != undefined){
-  //      res.status(200).send(data.value1);
-  //   }
-  // });
 });
 

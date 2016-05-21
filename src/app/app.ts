@@ -6,7 +6,8 @@ import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Home} from '../home/home';
 import {Login} from '../login/login';
 import {Signup} from '../signup/signup';
-import {Order} from '../order/order';
+import {Manage} from '../manage/manage';
+import {Appadvert} from '../common/app.advert';
 
 let template = require('./app.html');
 
@@ -15,14 +16,14 @@ let template = require('./app.html');
 })
 @View({
   template: template,
-  directives: [ LoggedInRouterOutlet, ROUTER_DIRECTIVES ]
+  directives: [ LoggedInRouterOutlet, ROUTER_DIRECTIVES, Appadvert ]
 })
 @RouteConfig([
   { path: '/', redirectTo: ['/Home'] },
   { path: '/home', component: Home, as: 'Home' },
   { path: '/login', component: Login, as: 'Login' },
   { path: '/signup', component: Signup, as: 'Signup' },
-   { path: '/order', component: Order, as: 'Order' }
+   { path: '/manage', component: Manage, as: 'Manage' }
 ])
 
 export class App {

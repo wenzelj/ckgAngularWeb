@@ -1,10 +1,4 @@
-<div>
-
-  <div class="home jumbotron centered">
-    <h2>Add new advert by geolocation</h2>
-  </div>
-    <!--<appadvert></appadvert>-->
-    <div class="form-group">
+<div class="form-group">
         <label for="txtlongitude">Unique name</label><br/>
         <input type="text" [(ngModel)]="advert.name" class="form-control" id="txtlongitude" placeholder="unique name">
       </div>
@@ -39,23 +33,3 @@
       <button ng-show="!loading" type="submit" (click)="save(advert)" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i> save</button>
 
       <div class="alert alert-success" role="alert"> {{response}} </div>
-    
-    
-    
-
-
-
-
-<!--   <div class="home jumbotron centered">
-    <h1>Welcome to the angular2 authentication sample!</h1>
-    <h2 *ngIf="jwt">Your JWT is:</h2>
-    <pre *ngIf="jwt" class="jwt"><code>{{ jwt }}</code></pre>
-    <pre *ngIf="jwt" class="jwt"><code>{{ decodedJwt | json }}</code></pre>
-    <p>Click any of the buttons to call an API and get a response</p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="callAnonymousApi()">Call Anonymous API</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Call Secure API</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
-    <h2 *ngIf="response">The response of calling the <span class="red">{{api}}</span> API is:</h2>
-    <h3 *ngIf="response">{{response}}</h3>
-  </div> -->
-</div>

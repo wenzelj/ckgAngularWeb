@@ -4,7 +4,7 @@ import { Http, Headers } from 'angular2/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Router } from 'angular2/router';
 import { contentHeaders } from '../common/headers';
-
+import { Appadvert } from '../common/app.advert';
 let styles = require('./home.css');
 let template = require('./home.html');
 
@@ -12,7 +12,7 @@ let template = require('./home.html');
   selector: 'home'
 })
 @View({
-  directives: [CORE_DIRECTIVES],
+  directives: [CORE_DIRECTIVES, Appadvert],
   template: template,
   styles: [styles]
 })
@@ -53,34 +53,34 @@ export class Home {
                       { headers: contentHeaders } )
       .subscribe(
           response => this.response = response.text(),
-          error => this.response = error.text()
+          error => this.response = error.text())
   }
 
-  callAnonymousApi() {
-    this._callApi('Anonymous', 'http://localhost:3001/api/random-quote');
-  }
+  // callAnonymousApi() {
+  //   this._callApi('Anonymous', 'http://localhost:3001/api/random-quote');
+  // }
 
-  callSecuredApi() {
-    this._callApi('Secured', 'http://localhost:3001/api/protected/random-quote');
-  }
+  // callSecuredApi() {
+  //   this._callApi('Secured', 'http://localhost:3001/api/protected/random-quote');
+  // }
 
-  _callApi(type, url) {
-    this.response = null;
-    if (type === 'Anonymous') {
-      // For non-protected routes, just use Http
-      this.http.get(url)
-        .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text()
-        );
-    }
-    if (type === 'Secured') {
-      // For protected routes, use AuthHttp
-      this.authHttp.get(url)
-        .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text()
-        );
-    }
-  }
+  // _callApi(type, url) {
+  //   this.response = null;
+  //   if (type === 'Anonymous') {
+  //     // For non-protected routes, just use Http
+  //     this.http.get(url)
+  //       .subscribe(
+  //         response => this.response = response.text(),
+  //         error => this.response = error.text()
+  //       );
+  //   }
+  //   if (type === 'Secured') {
+  //     // For protected routes, use AuthHttp
+  //     this.authHttp.get(url)
+  //       .subscribe(
+  //         response => this.response = response.text(),
+  //         error => this.response = error.text()
+  //       );
+  //   }
+  // }
 }
