@@ -5,6 +5,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { Router } from 'angular2/router';
 import { contentHeaders } from '../common/headers';
 import { Appadvert } from '../common/app.advert';
+import { Advert } from '../models/advert';
 let styles = require('./home.css');
 let template = require('./home.html');
 
@@ -29,14 +30,9 @@ export class Home {
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
     this.jwt = localStorage.getItem('jwt');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
-    this.advert = {};
-    this.advert.name = "";
-    this.advert.longitude = 0;
-    this.advert.latitude = 0;
-    this.advert.url = 'test';
-    this.advert.voucher= 'test';
-    this.advert.startdate = new Date();
-    this.advert.enddate = new Date();
+    var date = new Date();
+    var dateformat = date.getDay() + '-' + date.getMonth() + '-' + date.getFullYear()
+    this.advert = new Advert('','','','',dateformat, dateformat );
   }
 
   logout() {

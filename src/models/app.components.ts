@@ -1,38 +1,56 @@
 // Step 1. Import Injectable Decorator
 import { Injectable } from 'angular2/core';
-import { Http, Headers } from 'angular2/http';
+import { Http, Headers, Response } from 'angular2/http';
 import { AuthHttp } from 'angular2-jwt';
 import { contentHeaders } from '../common/headers';
+import { Advert } from './advert';
+import { Observable }     from 'rxjs/Observable';
+
 // Step 2. Use @Injectable() to declare the FriendSerivce class as an Injectable
 @Injectable()
 
+
 export class AdvertService {
-  advert: any;
+  advert:Advert;
   http : any;
   baseUrl: string;
+  private advertUrl ='http://localhost:3001/api/advert/'
   constructor(public _http: Http) {
+      console.log('AdvertService created');
       var date = new Date();
       var dateformat = date.getDay() + '-' + date.getMonth() + '-' + date.getFullYear()
-      this.advert= {
-                    longitude: '' ,
-                    latitude: '',
-                    url: '',
-                    voucher: '',
-                    startdate: dateformat,
-                    enddate: dateformat
-                }
+      this.advert= new Advert('','','','',dateformat, dateformat);
       this.http =_http;
     }
+  
     getAdvert() {
         return this.advert;
     }
     
-    getAdverts(){
-        return this.http.get('http://localhost:3001/api/getAdverts',
-                       '',
-                      { headers: contentHeaders } )
-      .map(responseData=>responseData.json());    
+    getAdverts(): Observable<Advert[]>{
+         return this.http.get(this.advertUrl + 'getAdverts')
+         .map(this.extractData)
+         .catch(this.handleError);
     }
+   
+    private extractData(res: Response) {
+    let body = res.json();
+  
+    return body || { };
+  }
+     
+    private handleError (error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+    error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
+  }
+    
+    // getAdverts(){
+    //     return this.http.get(this.advertUrl + '/getAdverts')
+    // }
 }
 
 /** 

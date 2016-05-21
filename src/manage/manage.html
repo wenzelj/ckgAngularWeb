@@ -2,7 +2,11 @@
   <div class="home jumbotron centered">
     <h1>Manage</h1>
   </div>
-  
-  
+  {{adverts}}
+<!--  
+  {{firstAdvert.Name}}-->
+  <div *ngFor="#advert of adverts; #i = index" >
+          {{advert.name}}
+  </div>
   
 </div>

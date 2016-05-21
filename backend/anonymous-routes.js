@@ -26,7 +26,7 @@ function azureTableCallBack(error, data){
 app.get('/api/random-quote', function(req, res) {
   res.status(200).send(quoter.getRandomOne());
 });
-app.get('/api/getAdverts', function(req, res) {
+app.get('/api/advert/getAdverts', function(req, res) {
     client.queryEntities(tableName,{
         query:azureTable.Query.create('PartitionKey', '==', partitionKey),
          limitTo: 100  
@@ -39,7 +39,13 @@ app.get('/api/getAdverts', function(req, res) {
       
       if(data != null && data != undefined){
           console.log(data);
-          res.status(200).send(data)
+          var result = [];
+          
+          data.forEach(function(item){
+              var jsonValue = JSON.parse(item.value1);
+              result.push(jsonValue);
+            })
+          res.status(200).send(result);
       }
    })
 })
