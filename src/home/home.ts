@@ -59,34 +59,35 @@ export class Home {
   // }
   
  
-  advertUpload(event) {
+  advertUpload(event, advert) {
     var encodedFile;
-    alert('upload');
     var files = event.srcElement.files;
     var file = files[0];
     var reader = new FileReader();
-    // var dataUrl =  reader.readAsDataURL(files[0]);
-    // var binaryString = reader.readAsBinaryString(files);
-    // console.log(files);
-    //     if (files && file) {
-         
-    //     var fileReader = new FileReader();
- 
-    //     fileReader.onload = function(fileLoadedEvent) 
-    //     {
-    //         // var textAreaFileContents = document.getElementById
-    //         // (
-    //         //     "textAreaFileContents"
-    //         // );
-     
-    //         encodedFile = fileLoadedEvent.target.result;
-    //     }
- 
-    //     fileReader.readAsDataURL(file);
-    // }  
-    
+    console.log(files);
+        if (files && file) { 
+        var reader = new FileReader();
+        reader.onload = function(e){
+          advert.image = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }   
   }
   
+    voucherUpload(event, advert) {
+    var encodedFile;
+    var files = event.srcElement.files;
+    var file = files[0];
+    var reader = new FileReader();
+    console.log(files);
+        if (files && file) { 
+        var reader = new FileReader();
+        reader.onload = function(e){
+          advert.voucher = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }   
+  }
   
 
 
