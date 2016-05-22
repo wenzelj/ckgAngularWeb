@@ -14,10 +14,10 @@
       <div class="caption">
         <h3>{{advert.name}}</h3>
         
-        <div class="form-group">
+        <!--<div class="form-group">
         <label for="txtlongitude">Unique name</label><br/>
         <input type="text" [(ngModel)]="advert.name" class="form-control" id="txtlongitude" placeholder="unique name">
-      </div>
+      </div>-->
       <div class="form-group">
         <label for="txtlongitude">Longitude</label><br/>
         <input type="text" [(ngModel)]="advert.longitude" class="form-control" id="txtlongitude" placeholder="">
@@ -28,17 +28,15 @@
       </div>
 
       <div class="form-group">
+           <label for="txtadverturl">Advert image</label><br/>
           <img src="{{advert.image}}" alt="Advert Image">
-        <label for="txtadverturl">Advert image</label><br/>
-        <input type="text" [(ngModel)]="advert.image" class="form-control" id="txtadverturl" placeholder="">
+      </div>
+     
+       <div class="form-group">
+        <label for="txtvoucherurl">Voucher image</label><br/>
+        <img src="{{advert.voucher}}" alt="voucher Image">
       </div>
       
-      {{advert.image}}
-       <div class="form-group">
-        <img src="{{advert.voucher}}" alt="voucher Image">
-        <label for="txtvoucherurl">Voucher image</label><br/>
-        <input type="text" [(ngModel)]="advert.voucher" class="form-control" id="txtvoucherurl" placeholder="">
-      </div>
       <div class="form-group">
         <label for="txtfromDate">Start Date</label><br/>
         <input type="date" [(ngModel)]="advert.startdate" class="form-control" id="txtfromDate" placeholder="">
@@ -48,10 +46,10 @@
         <input type="date" [(ngModel)]="advert.enddate" class="form-control" id="txtfromDate" placeholder="">
       </div>
 
-        
-        
-        <p>...</p>
-        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+       
+        <p>
+          <button class="btn btn-primary" role="button">update</button>
+          <button class="btn btn-warning" role="button">delete</button></p>
       </div>
     </div>
   </div>
