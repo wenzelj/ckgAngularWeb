@@ -14,13 +14,16 @@ export class AdvertService {
   advert:Advert;
   http : any;
   baseUrl: string;
-  private advertUrl ='http://localhost:3001/api/advert/'
-  constructor(public _http: Http) {
+  authHttp :any;
+  private advertUrl ='http://localhost:3001/api/advert/';
+  private protectedAdvertUrl= 'http://localhost:3001/api/protected/advert/';
+  constructor(public _http: Http, public _authHttp: AuthHttp) {
       console.log('AdvertService created');
       var date = new Date();
       var dateformat = date.getDay() + '-' + date.getMonth() + '-' + date.getFullYear()
       this.advert= new Advert('','','','',dateformat, dateformat);
       this.http =_http;
+      this.authHttp = _authHttp;
     }
   
     getAdvert() {
@@ -31,6 +34,21 @@ export class AdvertService {
          return this.http.get(this.advertUrl + 'getAdverts')
          .map(this.extractData)
          .catch(this.handleError);
+    }
+    
+    updateAdvert  = (advert): Observable<any> => {
+        let body = JSON.stringify(advert);
+        return this._authHttp.post(this.protectedAdvertUrl + 'update', 
+        body, {})
+        .catch(this.handleError)
+    }
+    
+    deleteAdvert = (advert): Observable<any> => {
+        let jsonAdvert = JSON.stringify(advert);
+        let body = {advert: advert.name };
+        return this.authHttp.post(this.protectedAdvertUrl + 'delete', 
+            body, {})
+        .catch(this.handleError)
     }
    
     private extractData(res: Response) {

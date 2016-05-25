@@ -52,3 +52,41 @@ app.post('/api/protected/advert', function(req, res) {
   });
 });
 
+app.post('/api/protected/advert/update', function(req, res) {
+  var advert = JSON.stringify(req.body);
+  var name = req.body.name;
+  var partitionKey = 'geoadds';
+  var entity = new Entity(partitionKey, name, advert);
+  client.updateEntity(tableName, entity ,function(error, data){
+    console.log(error);
+    console.log(data);
+     if(error != undefined){
+        res.status(200).send(error)
+     }
+     
+     if(data != undefined){
+         res.status(200).send('Succesfully updated')
+     }
+  });
+});
+
+app.post('/api/protected/advert/delete', function(req, res) {
+  var advert = JSON.stringify(req.body);
+  var name = req.body.name;
+  var partitionKey = 'geoadds';
+
+  var entity = new Entity(partitionKey, name, advert);
+  client.deleteEntity(tableNam, entity, function(err, data) {
+     if(error != undefined){
+        console.log(error);
+        res.status(200).send(error)
+     }
+     
+     if(data != undefined){
+         console.log(data);
+         res.status(200).send('Succesfully deleted')
+     }
+});
+  
+});
+

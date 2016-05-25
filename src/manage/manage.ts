@@ -24,7 +24,9 @@ export class Manage  implements OnInit {
   jwt: string;
   decodedJwt: string;
   adverts: Array<Advert>;
+  message:string;
   firstAdvert: any;
+  
   constructor(public router: Router, public advertService : AdvertService ) {
     this.jwt = localStorage.getItem('jwt');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
@@ -34,7 +36,6 @@ export class Manage  implements OnInit {
         this.adverts = new Array(data.length);
         console.log(data);
         this.adverts = data;
-        this.firstAdvert = data[0];
       }
   
   getData(){  
@@ -44,6 +45,20 @@ export class Manage  implements OnInit {
         data => this.extractData(data),
         () => console.log('done')
         );
+  }
+ 
+  update(advert){
+    this.advertService.updateAdvert(advert)
+    .subscribe(
+      data => this.message = data
+    )
+  }
+  
+  delete(advert){
+     this.advertService.deleteAdvert(advert)
+    .subscribe(
+      data => this.message = data
+    )
   }
    
   logout() {
