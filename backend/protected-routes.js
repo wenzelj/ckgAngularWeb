@@ -57,7 +57,7 @@ app.post('/api/protected/advert/update', function(req, res) {
   var name = req.body.name;
   var partitionKey = 'geoadds';
   var entity = new Entity(partitionKey, name, advert);
-  client.updateEntity(tableName, entity ,function(error, data){
+  client.updateEntity(tableName, entity ,{force: true}, function(error, data){
     console.log(error);
     console.log(data);
      if(error != undefined){

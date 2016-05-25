@@ -36,10 +36,10 @@ export class AdvertService {
          .catch(this.handleError);
     }
     
-    updateAdvert  = (advert): Observable<any> => {
+    updateAdvert(advert): Observable<any> {
         let body = JSON.stringify(advert);
         return this._authHttp.post(this.protectedAdvertUrl + 'update', 
-        body, {})
+        body, { headers: contentHeaders } )
         .catch(this.handleError)
     }
     
@@ -47,7 +47,7 @@ export class AdvertService {
         let jsonAdvert = JSON.stringify(advert);
         let body = {advert: advert.name };
         return this.authHttp.post(this.protectedAdvertUrl + 'delete', 
-            body, {})
+            body, { headers: contentHeaders } )
         .catch(this.handleError)
     }
    
