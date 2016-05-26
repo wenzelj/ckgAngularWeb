@@ -43,9 +43,9 @@ export class AdvertService {
         .catch(this.handleError)
     }
     
-    deleteAdvert = (advert): Observable<any> => {
-        let jsonAdvert = JSON.stringify(advert);
-        let body = {advert: advert.name };
+    deleteAdvert(advert): Observable<any> {
+        // let jsonAdvert = JSON.stringify(advert);
+        let body =  JSON.stringify({name: advert.name, __etag: advert.__etag });
         return this.authHttp.post(this.protectedAdvertUrl + 'delete', 
             body, { headers: contentHeaders } )
         .catch(this.handleError)

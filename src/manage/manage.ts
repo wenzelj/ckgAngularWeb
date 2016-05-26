@@ -10,7 +10,6 @@ import { OnInit } from 'angular2/core';
 let styles = require('./manage.css');
 let template = require('./manage.html');
 
-
 @Component({
   selector: 'Manage',
   providers:[AdvertService],
@@ -26,10 +25,12 @@ export class Manage  implements OnInit {
   adverts: Array<Advert>;
   message:string;
   firstAdvert: any;
-  
+  loading: boolean;
+  toast: any;
   constructor(public router: Router, public advertService : AdvertService ) {
     this.jwt = localStorage.getItem('jwt');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
+    toastr.options = { positionClass: 'toast-bottom-right', }  
   }
   
   extractData(data){
@@ -46,11 +47,25 @@ export class Manage  implements OnInit {
         () => console.log('done')
         );
   }
+  
+ showSuccessMessage( message){
+    this.loading = false;
+    toastr.info(message);
+ }
+   
+ showErrorMessage( message){
+    this.loading = false;
+    toastr.error(message);
+ }
  
   update(advert){
+    this.loading = true;
     this.advertService.updateAdvert(advert)
     .subscribe(
-      data => this.message = data
+      data => this.showSuccessMessage(data._body),
+      error => this.showErrorMessage(error._body),
+         () => console.log('done')
+         
     )
   }
   

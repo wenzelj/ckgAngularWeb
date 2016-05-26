@@ -13,10 +13,11 @@ azureTable.setDefaultClient({
 });
 var client = azureTable.getDefaultClient();
 var tableName = 'advertstable';
-function Entity (partitionKey, rowKey, value1){
+function Entity (partitionKey, rowKey, value1, etag){
 	this.PartitionKey = partitionKey;
 	this.RowKey = rowKey;
 	this.value1 = value1;
+  this.__etag = etag
 }
 
 
@@ -73,10 +74,11 @@ app.post('/api/protected/advert/update', function(req, res) {
 app.post('/api/protected/advert/delete', function(req, res) {
   var advert = JSON.stringify(req.body);
   var name = req.body.name;
+  var etag = req.body.__etag
   var partitionKey = 'geoadds';
 
-  var entity = new Entity(partitionKey, name, advert);
-  client.deleteEntity(tableNam, entity, function(err, data) {
+  var entity = new Entity(partitionKey, name, '', etag);
+  client.deleteEntity(tableName, entity, function(error, data) {
      if(error != undefined){
         console.log(error);
         res.status(200).send(error)

@@ -43,6 +43,7 @@ app.get('/api/advert/getAdverts', function(req, res) {
           
           data.forEach(function(item){
               var jsonValue = JSON.parse(item.value1);
+              jsonValue.__etag = item.__etag
               result.push(jsonValue);
             })
           res.status(200).send(result);
