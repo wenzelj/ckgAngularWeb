@@ -1,0 +1,6 @@
+{
+    "apiUrl": "http://localhost:3001/api/",
+    "advertUrl": "http://localhost:3001/api/advert/",
+    "protectedAdvertUrl": "http://localhost:3001/api/protected/advert/",
+    "debugging": "true"
+}

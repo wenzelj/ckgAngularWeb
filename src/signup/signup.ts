@@ -20,19 +20,19 @@ export class Signup {
   }
 
   signup(event, username, password) {
-    event.preventDefault();
-    let body = JSON.stringify({ username, password });
-    this.http.post('http://localhost:3001/users', body, { headers: contentHeaders })
-      .subscribe(
-        response => {
-          localStorage.setItem('jwt', response.json().id_token);
-          this.router.parent.navigateByUrl('/home');
-        },
-        error => {
-          alert(error.text());
-          console.log(error.text());
-        }
-      );
+    // event.preventDefault();
+    // let body = JSON.stringify({ username, password });
+    // this.http.post('http://localhost:3001/users', body, { headers: contentHeaders })
+    //   .subscribe(
+    //     response => {
+    //       localStorage.setItem('jwt', response.json().id_token);
+    //       this.router.parent.navigateByUrl('/home');
+    //     },
+    //     error => {
+    //       alert(error.text());
+    //       console.log(error.text());
+    //     }
+    //   );
   }
 
   login(event) {

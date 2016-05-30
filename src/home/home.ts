@@ -6,14 +6,18 @@ import { Router } from 'angular2/router';
 import { contentHeaders } from '../common/headers';
 import { Appadvert } from '../common/app.advert';
 import { Advert } from '../models/advert';
+import { AdvertService } from '../models/app.components';
+import { Config } from "../app/config/config";
 let styles = require('./home.css');
 let template = require('./home.html');
 
 @Component({
-  selector: 'home'
+  selector: 'home',
+  providers:[AdvertService, Config],
 })
 @View({
   directives: [CORE_DIRECTIVES, Appadvert],
+  
   template: template,
   styles: [styles]
 })
@@ -26,13 +30,15 @@ export class Home {
   loading: boolean = false;
   success: boolean = false;
   fail: boolean = false;
+  config : Config;
 
-  constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
+  constructor(public router: Router, public http: Http, public authHttp: AuthHttp, public _config: Config ) {
     this.jwt = localStorage.getItem('jwt');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
     var date = new Date();
     var dateformat = date.getDay() + '-' + date.getMonth() + '-' + date.getFullYear()
     this.advert = new Advert('','','','',dateformat, dateformat );
+    this.config = _config;
   }
 
   logout() {
@@ -89,16 +95,24 @@ export class Home {
     }   
   }
   
+   showSuccessMessage( message){
+    toastr.info(message);
+ }
+   
+ showErrorMessage( message){
+    toastr.error(message);
+ }
+  
   save(newadvert){
   this.loading = true;
   this.response = null;
   let body = JSON.stringify(newadvert);
-  this.authHttp.post('http://localhost:3001/api/protected/advert',
+  this.authHttp.post(this.config.getProtectedAdvertUrl(),
                        body,
                       { headers: contentHeaders } )
       .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text())
+          response => this.showSuccessMessage(response.text()),
+          error => this.showErrorMessage(error.text()))
   }
 
   // callAnonymousApi() {

@@ -7,12 +7,13 @@ import { Router } from 'angular2/router';
 import { AdvertService } from '../models/app.components';
 import { Advert } from '../models/advert'
 import { OnInit } from 'angular2/core';
+import { Config } from "../app/config/config";
 let styles = require('./manage.css');
 let template = require('./manage.html');
 
 @Component({
   selector: 'Manage',
-  providers:[AdvertService],
+  providers:[AdvertService, Config],
 })
 @View({
   directives: [CORE_DIRECTIVES, NgFor],
@@ -27,9 +28,15 @@ export class Manage  implements OnInit {
   firstAdvert: any;
   loading: boolean;
   toast: any;
-  constructor(public router: Router, public advertService : AdvertService ) {
+  advertUrl:string;
+  protectedAdvertUrl:string;
+  config : Config;
+  constructor(public router: Router, public advertService : AdvertService, public _config: Config ) {
     this.jwt = localStorage.getItem('jwt');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
+    this.advertUrl = _config.getAdvertUrl();
+    this.protectedAdvertUrl = _config.getProtectedAdvertUrl();
+    this.config = _config;
     toastr.options = { positionClass: 'toast-bottom-right', }  
   }
   
@@ -40,7 +47,7 @@ export class Manage  implements OnInit {
       }
   
   getData(){  
-      this.advertService.getAdverts()
+      this.advertService.getAdverts(this.advertUrl)
       .subscribe( 
        // data => this.adverts = data,
         data => this.extractData(data),
@@ -49,31 +56,38 @@ export class Manage  implements OnInit {
   }
   
  showSuccessMessage( message){
+   console.log(message)
     this.loading = false;
     toastr.info(message);
  }
    
  showErrorMessage( message){
+    console.log(message)
     this.loading = false;
     toastr.error(message);
  }
  
+ deleteSuccess(data){
+   this.getData();
+   this.showSuccessMessage(data);
+ }
+ 
   update(advert){
     this.loading = true;
-    this.advertService.updateAdvert(advert)
+    this.advertService.updateAdvert(this.protectedAdvertUrl, advert)
     .subscribe(
       data => this.showSuccessMessage(data._body),
       error => this.showErrorMessage(error._body),
-         () => console.log('done')
-         
-    )
+         () => console.log('done'))
   }
   
   delete(advert){
-     this.advertService.deleteAdvert(advert)
+     this.advertService.deleteAdvert(this.protectedAdvertUrl, advert)
     .subscribe(
-      data => this.message = data
-    )
+      data => this.deleteSuccess(data._body),
+      error => this.showErrorMessage(error._body),
+      () => console.log('done')
+     )
   }
    
   logout() {

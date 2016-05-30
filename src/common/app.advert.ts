@@ -11,27 +11,12 @@ import { AdvertService } from '../models/app.components';
 })
 export class Appadvert { 
     advert: Object;
-  //   loading: boolean = false;
-  //   response: string;
-      
+  
     constructor( public authHttp: AuthHttp, private _advertService:AdvertService){
       this.advert = _advertService.getAdvert();
     }
-  //   set appadvert(advert:any){
-  //     this.advert = advert;
-  //   }
+
     
-  // save(newadvert){
-  // this.loading = true;
-  // this.response = null;
-  // let body = JSON.stringify(newadvert);
-  // this.authHttp.post('http://localhost:3001/api/protected/advert',
-  //                      body,
-  //                     { headers: contentHeaders } )
-  //     .subscribe(
-  //         response => this.response = response.text(),
-  //         error => this.response = error.text()
-  //     )
-  //   }
+
 
 }

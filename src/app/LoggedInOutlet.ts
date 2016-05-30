@@ -1,16 +1,21 @@
 import {Directive, Attribute, ElementRef, DynamicComponentLoader} from 'angular2/core';
 import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
 import {Login} from '../login/login';
-
+import { Config } from '../app/config/config';
 @Directive({
-  selector: 'router-outlet'
+  selector: 'router-outlet',
+  providers: [ Config ]
+  
 })
 export class LoggedInRouterOutlet extends RouterOutlet {
   publicRoutes: any;
   private parentRouter: Router;
 
-  constructor(_elementRef: ElementRef, _loader: DynamicComponentLoader,
-              _parentRouter: Router, @Attribute('name') nameAttr: string) {
+  constructor(_elementRef: ElementRef,
+               _loader: DynamicComponentLoader,
+               _parentRouter: Router, 
+               @Attribute('name') nameAttr: string,
+               private _config: Config) {
     super(_elementRef, _loader, _parentRouter, nameAttr);
 
     this.parentRouter = _parentRouter;
@@ -26,6 +31,10 @@ export class LoggedInRouterOutlet extends RouterOutlet {
       // todo: redirect to Login, may be there a better way?
       this.parentRouter.navigateByUrl('/login');
     }
-    return super.activate(instruction);
+    //return super.activate(instruction);
+  return this._config.load().then(() => {
+     return super.activate(instruction) 
+    })
+    //return super.activate(instruction) 
   }
 }
